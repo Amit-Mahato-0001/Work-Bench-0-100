@@ -1,5 +1,6 @@
 const User = require('../models/user.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const register = async ({ name, email, password }) => {
   if (!name || !email || !password) {
@@ -43,8 +44,18 @@ const login = async ({ email, password }) => {
     throw new Error('Invalid credentials')
   }
 
-  return {
+  const token = jwt.sign(
+    {
+      userId: user._id,
+      email: user.email
+    },
+    process.env.JWT_SECRET,
+    {expiresIn: "1h"}
+  )
+
+  return{
     message: 'Login successful',
+    token,
     user: {
       id: user._id,
       email: user.email

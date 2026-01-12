@@ -61,3 +61,11 @@ function Student({ name, age }){
 | Read-only          | Can be updated           |
 | Used for display   | Used for logic           |
 
+
+## Callback Props 
+
+- Callback props are functions passed from a parent to a child to notify the parent about the event.
+
+- parent function deta hai
+- child us function ko call karta hai
+- parent state update karta hai

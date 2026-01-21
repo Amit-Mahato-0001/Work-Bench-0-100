@@ -101,3 +101,40 @@ useEffect(() => {
 Runs:
 first render
 jab jab count change hota he
+
+API??
+
+API ek server hota hai jo hume data deta hai jab hum request bhejte hai.
+
+eg:
+User list
+Products
+Posts
+
+React me API call kahan karni chahiye??
+
+Render ke time?? ❌
+Normal function ke ander ❌
+
+API calls are side effects,
+isiliye wo humesha useEffect ke andar hoti hai
+
+Real world problem when API is called :
+
+API call karte waqt 3 situations hoti hai
+1. Data aa raha hai(loading)
+2. Data aa gaya(success)
+3. Error aa gaya(failure)
+
+Professional React app teeno handle karti he
+
+State planning :-
+API ke liye minimum 3 states chahiye
+
+const [data, setData] = useState([])
+const [loading, setLoading] = useState([true])
+const [error, setError] = useState([null])
+
+data > API ka response
+loading > UI ko batane k liye
+error > agar kuch galat ho

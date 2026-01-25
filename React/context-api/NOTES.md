@@ -42,3 +42,10 @@ avoid for:
 very frequently changing data
 small apps
 
+context + state ??
+context sirf data share karne ka medium hai
+actual data/state useState se hi aata hai
+
+context = wire
+state = electricity
+

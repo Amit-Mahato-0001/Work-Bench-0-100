@@ -70,3 +70,75 @@ exports.getTotalExpense = async (req, res, next) => {
         next(error)
     }
 }
+
+//CATEGORY WISE EXPENSE
+
+exports.getCategoryExpense = async (req, res, next) => {
+
+    try {
+        
+        const userId = new mongoose.Types.ObjectId(req.params.userId)
+
+        const result = await Expense.aggregate([
+            {
+                $match: { userId: userId}
+            },
+            {
+                $group: {
+                    _id: "$category",
+                    totalAmount: { $sum: "$amount"}
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    category: "$_id",
+                    totalAmount: 1
+                }
+            }
+        ])
+
+        res.json(result)
+
+    } catch (error) {
+
+        next(error)
+    }
+}
+
+//RECENT 5 EXPENSES
+
+exports.getRecentExpense = async (req, res, next) => {
+
+    try {
+        
+        const userId = new mongoose.Types.ObjectId(req.params.userId)
+
+        const result = await Expense.aggregate([
+            {
+                $match: { userId: userId}
+            },
+            {
+                $sort: {createdAt: -1}
+            },
+            {
+                $limit: 2
+            },
+            {
+                $project: {
+                    _id: 0,
+                    title: 1,
+                    amount: 1,
+                    category: 1,
+                    createdAt: 1
+                }
+            }
+        ])
+
+        res.json(result)
+
+    } catch (error) {
+        
+        next(error)
+    }
+}
